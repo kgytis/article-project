@@ -101,34 +101,18 @@
     },
     {
       "id": "108",
-      "title": "Test Article11",
+      "title": "Test Article8",
       "body": "Article about frontend development.3",
       "author_id": "1",
       "created_at": "2022-10-03",
       "updated_at": ""
     },
     {
-      "id": "109",
-      "title": "Test Article12",
-      "body": "Article about frontend development.3",
+      "id": "0c9812db-f61b-4248-a56d-854c0d49c2df",
+      "title": "Test form",
+      "body": "Testing form inputs",
       "author_id": "1",
-      "created_at": "2022-10-03",
-      "updated_at": ""
-    },
-    {
-      "id": "110",
-      "title": "Test Article13",
-      "body": "Article about frontend development.3",
-      "author_id": "1",
-      "created_at": "2022-10-03",
-      "updated_at": ""
-    },
-    {
-      "id": "0924dd7f-772d-4c0a-89b1-fa31a7c46392",
-      "title": "test",
-      "body": "test",
-      "author_id": "5dbe8bf0-40de-4a48-a094-0dec9926b9c1",
-      "created_at": 1664959204620,
+      "created_at": 1664977077970,
       "updated_at": ""
     }
   ]

@@ -31,7 +31,7 @@
 <script>
 export default {
   props: ['articleId', 'title', 'updatedAt', 'createdAt', 'author', 'article'],
-  emits: ['openEdit'],
+  emits: ['openEdit', 'itemDeleted'],
   data() {
     return {
       dialogToggle: false,
@@ -40,7 +40,7 @@ export default {
   methods: {
     editItem() {
       console.log('Edit item');
-      this.$emit('openEdit', this.title, this.article, this.articleId);
+      this.$emit('openEdit', this.articleId);
     },
     deletePrompt() {
       this.dialogToggle = !this.dialogToggle;
@@ -48,6 +48,7 @@ export default {
     async deleteItem(id) {
       this.deletePrompt();
       this.$store.dispatch('articles/deleteArticle', id);
+      this.$emit('itemDeleted');
       this.$toast.open({
         message: `Successfully deleted article - ${this.title}`,
         type: 'info',

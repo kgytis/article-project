@@ -10,6 +10,7 @@
       :author="article.name"
       :article="article.body"
       @openEdit="modalHandle"
+      @itemDeleted="itemDeleted"
     ></article-item>
     <base-modal :modalToggle="modalToggle.toggle" @close-modal="modalHandle">
       <div>
@@ -27,7 +28,7 @@ import ArticleItem from './ArticleItem.vue';
 import EditArticleForm from './EditArticleForm.vue';
 export default {
   props: ['allArticles'],
-  emits : ['editForm'],
+  emits : ['editForm', 'itemDeleted'],
   components: {
     ArticleItem,
     EditArticleForm,
@@ -43,11 +44,8 @@ export default {
     };
   },
   methods: {
-    modalHandle(title, article, articleId) {
+    modalHandle(articleId) {
       this.modalToggle.articleId = articleId;
-      this.modalToggle.title = title;
-      this.modalToggle.article = article;
-
       this.modalToggle.toggle === ''
         ? (this.modalToggle.toggle = 'is-active')
         : (this.modalToggle.toggle = '');
@@ -60,6 +58,9 @@ export default {
     },
     editForm(data){
       this.$emit('editForm', data)
+    },
+    itemDeleted(){
+      this.$emit('itemDeleted')
     }
   },
 };
