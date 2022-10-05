@@ -2,6 +2,7 @@
   <container>
     <div class="header">
       <h1>All articles</h1>
+      <base-search v-if="areArticles" @search="updateSearch"></base-search>
       <button class="button is-warning" @click="modalHandle">
         New Article
       </button>
@@ -50,6 +51,7 @@ export default {
       modalToggle: '',
       pageSize: 5,
       currentPage: 1,
+      searchQuery: '',
     };
   },
   computed: {
@@ -73,6 +75,7 @@ export default {
         await this.$store.dispatch('articles/fetchArticles', {
           pageSize: this.pageSize,
           currentPage: this.currentPage,
+          searchQuery: this.searchQuery,
         });
       } catch (error) {
         this.error = error;
@@ -90,11 +93,15 @@ export default {
       this.loadArticles();
       this.$toast.open('Success');
     },
-    editForm(data){
+    editForm(data) {
       this.$store.dispatch('articles/editArticle', data);
       this.loadArticles();
-      this.$toast.open('Success'); 
-    }
+      this.$toast.open('Success');
+    },
+    updateSearch(payload) {
+      this.searchQuery = payload;
+      this.loadArticles();
+    },
   },
   created() {
     this.loadArticles();

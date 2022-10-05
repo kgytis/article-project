@@ -5,13 +5,22 @@ export default {
     try {
       // Cia kartu tures buti search logika bei paginate logika
       // Fetch for articles (needed for multi-article page)
-      const { pageSize, currentPage } = payload;
-      const responseArticles = await axios.get(
-        `http://localhost:3000/articles?_page=${currentPage}&_limit=${pageSize}`
-      );
+      const { pageSize, currentPage, searchQuery } = payload;
+      console.log(searchQuery)
+      let responseArticles
+      if(searchQuery === '') {
+        responseArticles = await axios.get(
+          `http://localhost:3000/articles?_page=${currentPage}&_limit=${pageSize}`
+        );  
+      } else {
+        responseArticles = await axios.get(
+          `http://localhost:3000/articles?title_like=${searchQuery}&_page=${currentPage}&_limit=${pageSize}`
+        );
+      }
       const totalItems = responseArticles.headers['x-total-count'];
       const totalPages = Math.ceil(totalItems / pageSize);
-      // console.log(totalPages)
+      
+       console.log(totalPages)
       // Fetch for authors (needed for multi-article page)
       const responseAuthors = await axios.get('http://localhost:3000/authors');
 

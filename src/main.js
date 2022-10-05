@@ -11,12 +11,14 @@ import BaseCard from './components/UI/BaseCard.vue';
 import BaseModal from './components/UI/BaseModal.vue';
 import BaseSpinner from './components/UI/BaseSpinner.vue';
 import BaseDialog from './components/UI/BaseDialog.vue';
+import BaseSearch from './components/UI/BaseSearch.vue'
 // Component registration
 Vue.component('container', BaseContainer);
 Vue.component('card', BaseCard);
 Vue.component('base-modal', BaseModal);
 Vue.component('base-spinner', BaseSpinner);
 Vue.component('base-dialog', BaseDialog);
+Vue.component('base-search', BaseSearch)
 
 Vue.use(VueToast);
 
