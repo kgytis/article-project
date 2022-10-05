@@ -1,0 +1,135 @@
+{
+  "authors": [
+    {
+      "id": "1",
+      "name": "kGytis",
+      "created_at": "2022-10-03"
+    },
+    {
+      "id": "2",
+      "name": "teltonika",
+      "created_at": "2022-10-03"
+    },
+    {
+      "id": "5dbe8bf0-40de-4a48-a094-0dec9926b9c1",
+      "name": "kGytis",
+      "created_at": 1664883378589
+    },
+    {
+      "id": "2e3cac9d-a544-48f0-a5b7-deabfba470a4",
+      "name": "aaa",
+      "created_at": 1664890892270
+    },
+    {
+      "id": "55e8448c-2cf6-4b3c-900f-f65b1b682d63",
+      "name": "ssss",
+      "created_at": 1664890906573
+    }
+  ],
+  "articles": [
+    {
+      "id": "101",
+      "title": "Test Article2",
+      "body": "Article about frontend development.2",
+      "author_id": "2",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "102",
+      "title": "Test Article3",
+      "body": "Article about frontend development.3",
+      "author_id": "2",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "103",
+      "title": "Test Article4",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "d98afa42-2ab9-4d68-85e7-57548b1cfb99",
+      "title": "Test",
+      "body": "Test article5",
+      "author_id": "5dbe8bf0-40de-4a48-a094-0dec9926b9c1",
+      "created_at": 1664883378589,
+      "updated_at": ""
+    },
+    {
+      "id": "113",
+      "title": "Test Article6",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "104",
+      "title": "Test Article7",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "105",
+      "title": "Test Article8",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "106",
+      "title": "Test Article9",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "107",
+      "title": "Test Article10",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "108",
+      "title": "Test Article11",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "109",
+      "title": "Test Article12",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "110",
+      "title": "Test Article13",
+      "body": "Article about frontend development.3",
+      "author_id": "1",
+      "created_at": "2022-10-03",
+      "updated_at": ""
+    },
+    {
+      "id": "0924dd7f-772d-4c0a-89b1-fa31a7c46392",
+      "title": "test",
+      "body": "test",
+      "author_id": "5dbe8bf0-40de-4a48-a094-0dec9926b9c1",
+      "created_at": 1664959204620,
+      "updated_at": ""
+    }
+  ]
+}
