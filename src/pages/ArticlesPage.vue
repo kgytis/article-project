@@ -13,6 +13,7 @@
     <articles-list
       v-else-if="areArticles && !isLoading"
       :allArticles="allArticles"
+      @editForm="editForm"
     ></articles-list>
     <base-modal :modalToggle="modalToggle" @close-modal="modalHandle">
       <article-form
@@ -83,11 +84,17 @@ export default {
         ? (this.modalToggle = 'is-active')
         : (this.modalToggle = '');
     },
+    // redundant code. Could send with data whether it is a post action or update
     submitForm(data) {
       this.$store.dispatch('articles/postArticle', data);
       this.loadArticles();
       this.$toast.open('Success');
     },
+    editForm(data){
+      this.$store.dispatch('articles/editArticle', data);
+      this.loadArticles();
+      this.$toast.open('Success'); 
+    }
   },
   created() {
     this.loadArticles();

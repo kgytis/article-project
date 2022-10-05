@@ -14,13 +14,9 @@
     <base-modal :modalToggle="modalToggle.toggle" @close-modal="modalHandle">
       <div>
         <edit-article-form
-          :articlId="modalToggle.articleId"
-          :articleTitle="modalToggle.title"
-          :article="modalToggle.article"
+        :articleId=modalToggle.articleId
+        @save-data="editForm"
         ></edit-article-form>
-        <!-- <p>{{modalToggle.articleId}}</p>
-        <p>{{modalToggle.article}}</p>
-        <p>{{modalToggle.title}}</p> -->
       </div>
     </base-modal>
   </ul>
@@ -31,6 +27,7 @@ import ArticleItem from './ArticleItem.vue';
 import EditArticleForm from './EditArticleForm.vue';
 export default {
   props: ['allArticles'],
+  emits : ['editForm'],
   components: {
     ArticleItem,
     EditArticleForm,
@@ -61,6 +58,9 @@ export default {
       console.log(data);
       this.$toast.open('Success');
     },
+    editForm(data){
+      this.$emit('editForm', data)
+    }
   },
 };
 </script>

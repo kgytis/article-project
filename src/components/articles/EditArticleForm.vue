@@ -11,6 +11,7 @@
           type="text"
           placeholder="Title"
           v-model.trim="title.val"
+          value="editableArticle.title"
           @blur="clearValidity('title')"
         />
       </div>
@@ -26,6 +27,7 @@
           :class="{ 'is-danger': !body.isValid }"
           placeholder="Article"
           v-model.trim="body.val"
+          value="body.val"
           @blur="clearValidity('body')"
         />
       </div>
@@ -41,16 +43,15 @@
 <script>
 export default {
   emits: ['close-modal', 'save-data'],
-  props: ['articleTitle', 'article', 'articleId'],
+  props: ['articleId'],
   data() {
     return {
-      id: '',
       title: {
-        val: 'title',
+        val: '',
         isValid: true,
       },
       body: {
-        val: this.article,
+        val: '',
         isValid: true,
       },
       formIsValid: true,
@@ -61,8 +62,6 @@ export default {
     closeModal() {
       this.$emit('close-modal', '');
       this.formIsValid = true;
-      //   this.title.val = ''
-      //   this.body.val = ''
     },
     clearValidity(input) {
       this[input].isValid = true;
@@ -80,12 +79,23 @@ export default {
         this.formIsValid = false;
       }
     },
+    async loadArticle() {
+      try {
+        await this.$store.dispatch('articles/fetchArticle', {articleId : this.articleId});
+        const article = await this.$store.getters['articles/article'];
+        this.title.val = article.title;
+        this.body.val = article.body;
+      } catch (error) {
+        console.log(error.message);
+      }
+    },
     submitForm() {
       this.validateForm();
       if (!this.formIsValid) {
         return;
       }
       const formData = {
+        id : this.articleId,
         title: this.title.val,
         article: this.body.val,
         upadetedAt: new Date().getTime(),
@@ -95,15 +105,10 @@ export default {
     },
   },
   watch: {
-    id() {
-      this.title.val = this.articleTitle;
-      this.body.val = this.article;
+    articleId() {
+      this.loadArticle();
     },
   },
-  beforeUnmount(){
-    console.log('bingo!')
-    // this.id = this.articleId
-  }
 };
 </script>
 

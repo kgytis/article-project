@@ -29,8 +29,8 @@
   "articles": [
     {
       "id": "101",
-      "title": "Test Article2",
-      "body": "Article about frontend development.2",
+      "title": "Testing edit function",
+      "body": "I guess it is working",
       "author_id": "2",
       "created_at": "2022-10-03",
       "updated_at": ""

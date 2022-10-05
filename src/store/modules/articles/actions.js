@@ -1,17 +1,16 @@
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
 export default {
-
   async fetchArticles(context, payload) {
     try {
-      // Cia kartu tures buti search logika bei paginate logika 
+      // Cia kartu tures buti search logika bei paginate logika
       // Fetch for articles (needed for multi-article page)
-      const {pageSize, currentPage} = payload
+      const { pageSize, currentPage } = payload;
       const responseArticles = await axios.get(
         `http://localhost:3000/articles?_page=${currentPage}&_limit=${pageSize}`
       );
-      const totalItems = responseArticles.headers["x-total-count"]
-      const totalPages = Math.ceil(totalItems / pageSize)
+      const totalItems = responseArticles.headers['x-total-count'];
+      const totalPages = Math.ceil(totalItems / pageSize);
       // console.log(totalPages)
       // Fetch for authors (needed for multi-article page)
       const responseAuthors = await axios.get('http://localhost:3000/authors');
@@ -39,6 +38,32 @@ export default {
     } catch (error) {
       throw new Error('Failed to fetch data!' || error.message);
     }
+  },
+  async fetchArticle(context, payload) {
+    const { articleId } = payload;
+    try {
+      const response = await axios.get(
+        `http://localhost:3000/articles/${articleId}`
+      );
+      context.commit('setArticle', response.data);
+    } catch (error) {
+      throw new Error('Failed to fetch data!' || error.message);
+    }
+  },
+  async editArticle(context, payload) {
+    console.log(payload)
+    const {id, title, article, updatedAt} = payload
+    try {
+      axios.patch(`http://localhost:3000/articles/${id}`,{
+      title : title,
+      body: article,
+      updated_at : updatedAt
+      })
+    } catch (error) {
+      throw new Error('Failed to fetch data!' || error.message);
+    }
+    try {
+    } catch (error) {}
   },
   async deleteArticle(context, payload) {
     const articleId = payload;
