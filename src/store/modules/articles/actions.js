@@ -50,12 +50,21 @@ export default {
   async fetchArticle(context, payload) {
     const { articleId } = payload;
     try {
-      const response = await axios.get(
+      const responseArticles = await axios.get(
         `http://localhost:3000/articles/${articleId}`
       );
-      context.commit('setArticle', response.data);
+      const authorId = responseArticles.data.author_id;
+      const responseAuthors = await axios.get(
+        `http://localhost:3000/authors/${authorId}`
+      );
+      const authorName = responseAuthors.data.name
+      const data = {
+        ...responseArticles.data,
+        authorName
+      }
+      context.commit('setArticle', data);
     } catch (error) {
-      throw new Error('Failed to fetch data!' || error.message);
+      throw new Error(error.message);
     }
   },
   async editArticle(context, payload) {

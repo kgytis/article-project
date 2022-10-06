@@ -1,17 +1,23 @@
 export default {
+  // getters for articles (array) and article (empty - string)/pupulated - object
   articles(state) {
     return state.articles;
   },
-  article(state){
-    return state.article
+  article(state) {
+    return state.article;
   },
-  areArticles(_,getters){
-    return getters.articles && getters.articles.length > 0
+  // getters to check whether articles/article have been fetched
+  areArticles(_, getters) {
+    return getters.articles && getters.articles.length > 0;
   },
-  pageNumber(state){
-    return state.pageNumber
+  isArticle(_, getters) {
+    return getters.article
   },
-  articleNumber(state){
-    return state.articleNumber
-  }
+  // getters for pagination updates
+  pageNumber(state) {
+    return state.pageNumber;
+  },
+  articleNumber(state) {
+    return state.articleNumber;
+  },
 };
