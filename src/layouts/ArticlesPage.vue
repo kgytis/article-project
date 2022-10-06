@@ -1,7 +1,6 @@
 <template>
   <container>
     <div class="header">
-      <h1>All articles</h1>
       <base-search v-if="areArticles" @search="updateSearch"></base-search>
       <button class="button is-warning" @click="modalHandle">
         New Article
@@ -128,5 +127,7 @@ export default {
 .header {
   display: flex;
   justify-content: space-between;
+  align-items: center;
+  margin-top: 1rem;
 }
 </style>
