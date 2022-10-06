@@ -7,8 +7,9 @@
             {{ title }}
           </h3>
         </router-link>
-        <p class="creation">
-          {{ createdAt }}
+        <p class="is-size-7">Created at : {{ createDate }}</p>
+        <p v-if="updatedAt" class="is-size-7">
+          Last updated at : {{ updateDate }}
         </p>
         <h4>{{ author }}</h4>
       </div>
@@ -37,6 +38,14 @@ export default {
       dialogToggle: false,
     };
   },
+  computed: {
+    createDate() {
+      return this.dateCreator(this.createdAt);
+    },
+    updateDate() {
+      return this.dateCreator(this.updatedAt);
+    },
+  },
   methods: {
     editItem() {
       console.log('Edit item');
@@ -44,6 +53,12 @@ export default {
     },
     deletePrompt() {
       this.dialogToggle = !this.dialogToggle;
+    },
+    dateCreator(date) {
+      const fullDate = new Date(date).toISOString();
+      const fullYear = fullDate.slice(0, 10);
+      const fullTime = fullDate.slice(11, 19);
+      return fullYear + ' ' + fullTime;
     },
     async deleteItem(id) {
       this.deletePrompt();

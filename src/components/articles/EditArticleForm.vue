@@ -57,8 +57,13 @@ export default {
       },
       formIsValid: true,
       error: null,
-      isLoading : false
+      isLoading: false,
     };
+  },
+  computed: {
+    article() {
+      return this.$store.getters['articles/article'];
+    },
   },
   methods: {
     closeModal() {
@@ -87,9 +92,8 @@ export default {
         await this.$store.dispatch('articles/fetchArticle', {
           articleId: this.articleId,
         });
-        const article = await this.$store.getters['articles/article'];
-        this.title.val = article.title;
-        this.body.val = article.body;
+        this.title.val = this.article.title;
+        this.body.val = this.article.body;
         this.isLoading = false;
       } catch (error) {
         console.log(error.message);
@@ -97,17 +101,30 @@ export default {
     },
     submitForm() {
       this.validateForm();
-      if (!this.formIsValid) {
-        return;
+      console.log(this.article.title);
+      console.log(this.title.val);
+      if (
+        this.article.title === this.title.val &&
+        this.article.body === this.body.val
+      ) {
+        this.closeModal();
+        this.$toast.open({
+          message: `No changes have been made.`,
+          type: 'info',
+        });
+      } else {
+        if (!this.formIsValid) {
+          return;
+        }
+        const formData = {
+          id: this.articleId,
+          title: this.title.val,
+          article: this.body.val,
+          updatedAt: new Date().getTime(),
+        };
+        this.closeModal();
+        this.$emit('save-data', formData);
       }
-      const formData = {
-        id: this.articleId,
-        title: this.title.val,
-        article: this.body.val,
-        updatedAt: new Date().getTime(),
-      };
-      this.closeModal();
-      this.$emit('save-data', formData);
     },
   },
   watch: {

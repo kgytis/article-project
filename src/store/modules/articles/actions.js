@@ -18,10 +18,11 @@ export default {
       }
       const totalItems = responseArticles.headers['x-total-count'];
       const totalPages = Math.ceil(totalItems / pageSize);
+      console.log(responseArticles);
 
       // Fetch for authors (needed for multi-article page)
       const responseAuthors = await axios.get('http://localhost:3000/authors');
-
+      console.log(responseAuthors);
       const mergedAndFilteredArticles = [];
       for (let i = 0; i < responseArticles.data.length; i++) {
         for (let j = 0; j < responseAuthors.data.length; j++) {
@@ -57,11 +58,11 @@ export default {
       const responseAuthors = await axios.get(
         `http://localhost:3000/authors/${authorId}`
       );
-      const authorName = responseAuthors.data.name
+      const authorName = responseAuthors.data.name;
       const data = {
         ...responseArticles.data,
-        authorName
-      }
+        authorName,
+      };
       context.commit('setArticle', data);
     } catch (error) {
       throw new Error(error.message);
