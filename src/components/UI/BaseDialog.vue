@@ -50,7 +50,6 @@ export default {
         return;
       }
       this.$emit('delete');
-      console.log('delete')
     },
   },
 };

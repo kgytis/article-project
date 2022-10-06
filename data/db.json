@@ -74,14 +74,6 @@
       "author_id": "2",
       "created_at": 1665035171336,
       "updated_at": ""
-    },
-    {
-      "id": "89dab454-ebca-4129-a072-4cff17ba56f4",
-      "title": "New article",
-      "body": "New article",
-      "author_id": "2",
-      "created_at": 1665046881684,
-      "updated_at": ""
     }
   ]
 }

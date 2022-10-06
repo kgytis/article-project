@@ -6,7 +6,7 @@
         <button class="button is-link is-light" @click="editArticle">
           Edit
         </button>
-        <button class="button is-danger is-light" @click="deleteArticle">
+        <button class="button is-danger is-light" @click="deletePrompt">
           Delete
         </button>
       </div>
@@ -15,6 +15,14 @@
     <p v-if="article.updated_at" class="is-size-7">Last updated at : {{ updateDate }}</p>
     <article class="box">
       <p>{{ article.body }}</p>
+      <base-dialog
+      :show="dialogToggle"
+      title="Deletion message"
+      @close="deletePrompt"
+      @delete="deleteArticle"
+    >
+      <p>Are you sure you want to delete article - {{ article.title }} ?</p>
+    </base-dialog>
     </article>
   </div>
 </template>
@@ -23,6 +31,11 @@
 export default {
   emits: ['editArticle', 'deleteArticle'],
   props: ['article'],
+  data(){
+    return {
+      dialogToggle: false,
+    }
+  },
   methods: {
     editArticle() {
       this.$emit('editArticle');
@@ -35,6 +48,9 @@ export default {
       const fullYear = fullDate.slice(0, 10);
       const fullTime = fullDate.slice(11, 19);
       return fullYear + ' ' + fullTime;
+    },
+    deletePrompt() {
+      this.dialogToggle = !this.dialogToggle;
     },
   },
   computed: {

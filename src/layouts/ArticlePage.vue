@@ -81,7 +81,13 @@ export default {
       this.$toast.open('Success');
     },
     deleteArticle() {
-      console.log('delete!');
+      this.$store.dispatch('articles/deleteArticle', this.article.id);
+      this.$toast.open({
+        message: `Successfully deleted article - ${this.article.title}`,
+        type: 'info',
+      });
+      this.back();
+      
     },
     back() {
       this.$router.push('/articles');
