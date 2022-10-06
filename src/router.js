@@ -10,7 +10,7 @@ const router = new Router({
   routes: [
     { path: '/', component: Articles },
     { path: '/articles', component: Articles },
-    { path: '/articles/:id', component: Article },
+    { path: '/articles/:id', component: Article, props: true },
   ],
 });
 export default router;
