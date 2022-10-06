@@ -16,4 +16,7 @@ export default {
   setPageNumber(state, payload) {
     state.pageNumber = payload;
   },
+  countArticles(state, payload){
+    state.articleNumber = payload
+  }
 };

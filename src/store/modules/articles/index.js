@@ -7,7 +7,8 @@ export default {
         return {
             articles : [],
             pageNumber : null,
-            article : ''
+            article : '',
+            articleNumber : null
         }
     },
     getters,

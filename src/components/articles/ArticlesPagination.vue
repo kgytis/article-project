@@ -18,7 +18,7 @@
 <script>
 export default {
   emits: ['changePage'],
-  props: ['pageSize', 'currentPage', 'totalPages'],
+  props: ['pageSize', 'currentPage', 'totalPages', 'totalArticles'],
 
   data() {
     return {
@@ -39,17 +39,23 @@ export default {
       this.pageArray[index].activePage = true;
       this.$emit('pageNumber', page);
     },
+    pageReset() {
+      this.pageArray = [];
+      this.pageArrayFiller();
+      this.pageArray[0].activePage = true;
+    },
+  },
+  watch: {
+    totalPages() {
+      this.pageReset();
+    },
+    totalArticles() {
+      this.pageReset();
+    },
   },
   created() {
     this.pageArrayFiller();
     this.pageArray[0].activePage = true;
   },
-  watch : {
-    totalPages(){
-      this.pageArray = [];
-      this.pageArrayFiller();
-      this.pageArray[0].activePage = true;
-    }
-  }
 };
 </script>

@@ -50,12 +50,6 @@ export default {
         ? (this.modalToggle.toggle = 'is-active')
         : (this.modalToggle.toggle = '');
     },
-    submitForm(data) {
-      // this.$store.dispatch('articles/postArticle', data);
-      // this.loadArticles();
-      console.log(data);
-      this.$toast.open('Success');
-    },
     editForm(data){
       this.$emit('editForm', data)
     },

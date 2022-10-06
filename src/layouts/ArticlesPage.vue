@@ -28,6 +28,7 @@
       :pageSize="pageSize"
       :currentPage="currentPage"
       :totalPages="totalPages"
+      :totalArticles="totalArticles"
       v-if="totalPages > 0"
       @pageNumber="paginate"
     ></articles-pagination>
@@ -65,6 +66,9 @@ export default {
     totalPages() {
       return this.$store.getters['articles/pageNumber'];
     },
+    totalArticles() {
+      return this.$store.getters['articles/articleNumber'];
+    },
   },
   methods: {
     paginate(page) {
@@ -91,7 +95,7 @@ export default {
     // redundant code. Could send with data whether it is a post action or update
     submitForm(data) {
       this.$store.dispatch('articles/postArticle', data);
-      this.updateCurrentPage();
+      this.loadArticles();
       this.$toast.open('Success');
     },
     editForm(data) {
@@ -103,10 +107,11 @@ export default {
       this.searchQuery = payload;
       this.loadArticles();
     },
-    updateCurrentPage(){
+    updateCurrentPage() {
+      console.log(this.currentPage);
       this.currentPage = 1;
-      this.loadArticles();
-    }
+      console.log(this.currentPage);
+    },
   },
   created() {
     this.loadArticles();

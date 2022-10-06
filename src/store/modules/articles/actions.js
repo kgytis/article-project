@@ -42,6 +42,7 @@ export default {
       }
       context.commit('setArticles', mergedAndFilteredArticles);
       context.commit('setPageNumber', totalPages);
+      context.commit('countArticles', totalItems);
     } catch (error) {
       throw new Error('Failed to fetch data!' || error.message);
     }
@@ -69,8 +70,6 @@ export default {
     } catch (error) {
       throw new Error('Failed to fetch data!' || error.message);
     }
-    try {
-    } catch (error) {}
   },
   async deleteArticle(context, payload) {
     const articleId = payload;
@@ -98,7 +97,7 @@ export default {
       updated_at: '',
     };
     try {
-      axios.post('http://localhost:3000/articles', {
+      await axios.post('http://localhost:3000/articles', {
         id: articleId,
         title: title,
         body: article,
@@ -106,12 +105,6 @@ export default {
         created_at: createdAt,
         updated_at: '',
       });
-      // istrinta po task'o patikslinimo
-      // axios.post('http://localhost:3000/authors', {
-      //   id: authorId,
-      //   name: authName,
-      //   created_at: createdAt,
-      // });
     } catch (error) {
       throw new Error(
         'Could not post an article. Try again later.' || error.message

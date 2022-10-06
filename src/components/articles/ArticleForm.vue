@@ -31,20 +31,21 @@
       </div>
       <p class="invalid" v-if="!article.isValid">Field cannot be empty</p>
     </div>
-    <div class="select">
-      <select name="name" id="name" v-model="name.val">
-        <option
-          v-for="author in allAuthors"
-          :key="author.id"
-          :value="author.id"
-          :text="author.name"
-        >
-          {{ author.name }}
-        </option>
-      </select>
-    </div>
+
     <div class="field">
       <label class="label" for="name">Author name</label>
+      <div class="select">
+        <select name="name" id="name" v-model="name.val" @blur="clearValidity('name')">
+          <option
+            v-for="author in allAuthors"
+            :key="author.id"
+            :value="author.id"
+            :text="author.name"
+          >
+            {{ author.name }}
+          </option>
+        </select>
+      </div>
       <p class="invalid" v-if="!name.isValid">Field cannot be empty</p>
     </div>
     <p class="invalid" v-if="!formIsValid">
@@ -72,7 +73,7 @@ export default {
       },
       name: {
         val: '',
-        text : '',
+        text: '',
         isValid: true,
       },
       formIsValid: true,
@@ -99,10 +100,10 @@ export default {
         this.article.isValid = false;
         this.formIsValid = false;
       }
-      // if (this.name.val === '') {
-      //   this.name.isValid = false;
-      //   this.formIsValid = false;
-      // }
+      if (this.name.val === '') {
+        this.name.isValid = false;
+        this.formIsValid = false;
+      }
     },
     submitForm() {
       this.validateForm();
@@ -116,12 +117,15 @@ export default {
         authId: this.name.val,
         createdAt: new Date().getTime(),
       };
+      this.title.val = '';
+      this.article.val = '';
+      this.name.val = '';
       this.closeModal();
       this.$emit('save-data', formData);
     },
     async loadAuthors() {
       try {
-        console.log('loadAuthors')
+        console.log('loadAuthors');
         await this.$store.dispatch('authors/fetchAuthors');
       } catch (error) {
         console.log(error.message);
@@ -135,6 +139,9 @@ export default {
   },
   created() {
     this.loadAuthors();
+    this.title.val = '';
+    this.article.val = '';
+    this.name.val = '';
   },
 };
 </script>

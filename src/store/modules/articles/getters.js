@@ -10,5 +10,8 @@ export default {
   },
   pageNumber(state){
     return state.pageNumber
+  },
+  articleNumber(state){
+    return state.articleNumber
   }
 };
