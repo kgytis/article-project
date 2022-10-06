@@ -29,19 +29,19 @@
   "articles": [
     {
       "id": "101",
-      "title": "Testing edit function",
+      "title": "Testing edit function!!!!",
       "body": "I guess it is working",
       "author_id": "2",
       "created_at": "2022-10-03",
-      "updated_at": ""
+      "updated_at": 1665046930876
     },
     {
       "id": "102",
-      "title": "Test Article777",
+      "title": "Front-end development----",
       "body": "Article about frontend development.3",
       "author_id": "2",
-      "created_at": "2022-10-03",
-      "updated_at": ""
+      "created_at": 1665045747600,
+      "updated_at": 1665045747660
     },
     {
       "id": "103",
@@ -73,6 +73,14 @@
       "body": "ffff",
       "author_id": "2",
       "created_at": 1665035171336,
+      "updated_at": ""
+    },
+    {
+      "id": "89dab454-ebca-4129-a072-4cff17ba56f4",
+      "title": "New article",
+      "body": "New article",
+      "author_id": "2",
+      "created_at": 1665046881684,
       "updated_at": ""
     }
   ]
