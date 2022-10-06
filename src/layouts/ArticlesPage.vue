@@ -16,7 +16,11 @@
       @editForm="editForm"
       @itemDeleted="updateCurrentPage"
     ></articles-list>
-    <base-modal :modalToggle="modalToggle" @close-modal="modalHandle">
+    <base-modal
+      title="New article"
+      :modalToggle="modalToggle"
+      @close-modal="modalHandle"
+    >
       <article-form
         @close-modal="modalHandle"
         @save-data="submitForm"
@@ -91,34 +95,38 @@ export default {
         ? (this.modalToggle = 'is-active')
         : (this.modalToggle = '');
     },
-    // redundant code. Could send with data whether it is a post action or update
-    submitForm(data) {
-      this.$store.dispatch('articles/postArticle', data);
+    formHandling(type, data) {
+      if (type === 'edit') {
+        return this.$store.dispatch('articles/editArticle', data);
+      } else {
+        this.$store.dispatch('articles/postArticle', data);
+      }
       this.loadArticles();
       this.$toast.open('Success');
     },
+    // redundant code. Could send with data whether it is a post action or update
+    submitForm(data) {
+      this.formHandling('', data);
+    },
     editForm(data) {
-      this.$store.dispatch('articles/editArticle', data);
-      this.loadArticles();
-      this.$toast.open('Success');
+      this.formHandling('edit', data);
     },
     updateSearch(payload) {
       this.searchQuery = payload;
       this.loadArticles();
     },
     updateCurrentPage() {
-      console.log(this.currentPage);
       this.currentPage = 1;
-      console.log(this.currentPage);
+      this.searchQuery = '';
     },
-  },
-  created() {
-    this.loadArticles();
   },
   watch: {
     currentPage() {
       this.loadArticles();
     },
+  },
+  created() {
+    this.loadArticles();
   },
 };
 </script>

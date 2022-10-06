@@ -35,7 +35,12 @@
     <div class="field">
       <label class="label" for="name">Author name</label>
       <div class="select">
-        <select name="name" id="name" v-model="name.val" @blur="clearValidity('name')">
+        <select
+          name="name"
+          id="name"
+          v-model="name.val"
+          @blur="clearValidity('name')"
+        >
           <option
             v-for="author in allAuthors"
             :key="author.id"
@@ -80,7 +85,7 @@ export default {
   methods: {
     closeModal() {
       this.$emit('close-modal', '');
-      // this.formIsValid = true;
+      this.formIsValid = true;
     },
     clearValidity(input) {
       this[input].isValid = true;
@@ -122,7 +127,6 @@ export default {
     },
     async loadAuthors() {
       try {
-        console.log('loadAuthors');
         await this.$store.dispatch('authors/fetchAuthors');
       } catch (error) {
         console.log(error.message);

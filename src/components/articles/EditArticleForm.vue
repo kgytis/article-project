@@ -3,7 +3,7 @@
     <base-spinner v-if="isLoading"></base-spinner>
     <form v-else @submit.prevent="submitForm">
       <div class="field">
-        <label class="label" for="title">Article title </label>
+        <label class="label" for="title">Article title</label>
         <div class="control">
           <input
             name="title"
@@ -44,7 +44,16 @@
 <script>
 export default {
   emits: ['close-modal', 'save-data'],
-  props: ['articleId', 'refetch'],
+  props: {
+    articleId: {
+      type: String || undefined,
+      required: false,
+    },
+    refetch: {
+      type: Boolean,
+      required: false,
+    },
+  },
   data() {
     return {
       title: {
@@ -89,20 +98,21 @@ export default {
     async loadArticle() {
       try {
         this.isLoading = true;
-        await this.$store.dispatch('articles/fetchArticle', {
-          articleId: this.articleId,
-        });
-        this.title.val = this.article.title;
-        this.body.val = this.article.body;
-        this.isLoading = false;
+        if (this.articleId) {
+          await this.$store.dispatch('articles/fetchArticle', {
+            articleId: this.articleId,
+          });
+          this.title.val = this.article.title;
+          this.body.val = this.article.body;
+          this.isLoading = false;
+        }
+        return;
       } catch (error) {
         console.log(error.message);
       }
     },
     submitForm() {
       this.validateForm();
-      console.log(this.article.title);
-      console.log(this.title.val);
       if (
         this.article.title === this.title.val &&
         this.article.body === this.body.val

@@ -10,12 +10,17 @@
 </template>
 <script>
 export default {
-    emits: ['back'],
-    props: ['title'],
-    methods : {
-        back(){
-            this.$emit('back')
-        }
-    }
-}
+  emits: ['back'],
+  props: {
+    title: {
+      type: String,
+      required: true,
+    },
+  },
+  methods: {
+    back() {
+      this.$emit('back');
+    },
+  },
+};
 </script>

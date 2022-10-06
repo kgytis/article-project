@@ -1,8 +1,8 @@
 <template>
   <form @submit.prevent="search">
     <div class="field search">
-    <input type="search" v-model="searchQuery" placeholder="Filter items" />
-    <button class="button">Search</button>
+      <input type="search" v-model="searchQuery" placeholder="Filter items" />
+      <button class="button">Search</button>
     </div>
   </form>
 </template>
@@ -10,15 +10,15 @@
 <script>
 export default {
   emits: ['search'],
-  data(){
+  data() {
     return {
-        searchQuery : ''
-    }
+      searchQuery: '',
+    };
   },
   methods: {
     search() {
       this.$emit('search', this.searchQuery);
-      this.searchQuery = ''
+      this.searchQuery = '';
     },
   },
 };
@@ -33,12 +33,12 @@ input {
   border: 1px solid #ccc;
 }
 
-.search{
-    display: flex;
+.search {
+  display: flex;
 }
 
 .search button {
-    margin-left: 0.4rem;
+  margin-left: 0.4rem;
 }
 
 input:focus {

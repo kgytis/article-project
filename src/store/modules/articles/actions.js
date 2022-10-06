@@ -1,28 +1,23 @@
 import axios from 'axios';
 import { v4 as uuid } from 'uuid';
+const url = 'http://localhost:3000';
 export default {
   async fetchArticles(context, payload) {
     try {
       // Cia kartu tures buti search logika bei paginate logika
       // Fetch for articles (needed for multi-article page)
       const { pageSize, currentPage, searchQuery } = payload;
-      let responseArticles;
+      let query;
       if (searchQuery === '') {
-        responseArticles = await axios.get(
-          `http://localhost:3000/articles?_page=${currentPage}&_limit=${pageSize}`
-        );
+        query = `?_page=${currentPage}&_limit=${pageSize}`;
       } else {
-        responseArticles = await axios.get(
-          `http://localhost:3000/articles?title_like=${searchQuery}&_page=${currentPage}&_limit=${pageSize}`
-        );
+        query = `?title_like=${searchQuery}&_page=${currentPage}&_limit=${pageSize}`;
       }
-      const totalItems = responseArticles.headers['x-total-count'];
+      const responseArticles = await axios.get(`${url}/articles${query}`);
+      const totalItems = Number(responseArticles.headers['x-total-count']);
       const totalPages = Math.ceil(totalItems / pageSize);
-      console.log(responseArticles);
-
       // Fetch for authors (needed for multi-article page)
-      const responseAuthors = await axios.get('http://localhost:3000/authors');
-      console.log(responseAuthors);
+      const responseAuthors = await axios.get(`${url}/authors`);
       const mergedAndFilteredArticles = [];
       for (let i = 0; i < responseArticles.data.length; i++) {
         for (let j = 0; j < responseAuthors.data.length; j++) {
@@ -51,13 +46,9 @@ export default {
   async fetchArticle(context, payload) {
     const { articleId } = payload;
     try {
-      const responseArticles = await axios.get(
-        `http://localhost:3000/articles/${articleId}`
-      );
+      const responseArticles = await axios.get(`${url}/articles/${articleId}`);
       const authorId = responseArticles.data.author_id;
-      const responseAuthors = await axios.get(
-        `http://localhost:3000/authors/${authorId}`
-      );
+      const responseAuthors = await axios.get(`${url}/authors/${authorId}`);
       const authorName = responseAuthors.data.name;
       const data = {
         ...responseArticles.data,
@@ -68,11 +59,10 @@ export default {
       throw new Error(error.message);
     }
   },
-  async editArticle(context, payload) {
-    console.log(payload);
+  async editArticle(_, payload) {
     const { id, title, article, updatedAt } = payload;
     try {
-      axios.patch(`http://localhost:3000/articles/${id}`, {
+      axios.patch(`${url}/articles/${id}`, {
         title: title,
         body: article,
         updated_at: updatedAt,
@@ -83,31 +73,18 @@ export default {
   },
   async deleteArticle(context, payload) {
     const articleId = payload;
-    axios.delete(`http://localhost:3000/articles/${articleId}`);
-    // deleting in db, but no new fetch performed
-    // filtering istead of fetch was implemented before, although
-    // as with pagination, (small chunks of data are extracted)
-    // re-fetch more suitable to reload data
+    axios.delete(`${url}/articles/${articleId}`);
     const allArticles = context.getters.articles;
     const filteredArticles = allArticles.filter((item) => {
       return item.id !== articleId;
     });
     context.commit('setArticles', filteredArticles);
   },
-  async postArticle(context, payload) {
+  async postArticle(_, payload) {
     const { title, article, authName, authId, createdAt } = payload;
     const articleId = uuid();
-    // const authorId = uuid();
-    // const newArticle = {
-    //   id: articleId,
-    //   title: title,
-    //   name: authName,
-    //   body: article,
-    //   created_at: createdAt,
-    //   updated_at: '',
-    // };
     try {
-      await axios.post('http://localhost:3000/articles', {
+      await axios.post(`${url}/articles`, {
         id: articleId,
         title: title,
         body: article,
@@ -120,9 +97,5 @@ export default {
         'Could not post an article. Try again later.' || error.message
       );
     }
-    // Kad tiksliai veiktu page'ination, geriau nedaryti modifikavimu front'e, o palikti viska back'ui
-    // tada reiks kiekviena kart refetchinant
-    // context.commit('addArticle', newArticle);
-    console.log(payload);
   },
 };

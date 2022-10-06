@@ -1,23 +1,25 @@
 <template>
   <div>
     <div v-if="show" @click="tryClose" class="backdrop"></div>
-      <dialog open v-if="show">
-        <header>
-          <slot name="header">
-            <h2>{{ title }}</h2>
-          </slot>
-        </header>
-        <section>
-          <slot></slot>
-        </section>
-        <menu v-if="!fixed">
-          <slot name="actions">
-            <button class="button is-danger is-light" @click="tryDelete">Yes</button>
-            <button class="button" @click="tryClose">Close</button>
-          </slot>
-        </menu>
-      </dialog>
-      </div>
+    <dialog open v-if="show">
+      <header>
+        <slot name="header">
+          <h2>{{ title }}</h2>
+        </slot>
+      </header>
+      <section>
+        <slot></slot>
+      </section>
+      <menu v-if="!fixed">
+        <slot name="actions">
+          <button class="button is-danger is-light" @click="tryDelete">
+            Yes
+          </button>
+          <button class="button" @click="tryClose">Close</button>
+        </slot>
+      </menu>
+    </dialog>
+  </div>
 </template>
 
 <script>
@@ -29,7 +31,7 @@ export default {
     },
     title: {
       type: String,
-      required: false,
+      required: true,
     },
     fixed: {
       type: Boolean,
@@ -103,8 +105,7 @@ menu {
   margin: 0;
 }
 
-button{
-    margin : 0.4rem
+button {
+  margin: 0.4rem;
 }
-
 </style>

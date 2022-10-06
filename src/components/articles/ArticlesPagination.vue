@@ -18,8 +18,24 @@
 <script>
 export default {
   emits: ['changePage'],
-  props: ['pageSize', 'currentPage', 'totalPages', 'totalArticles'],
-
+  props: {
+    pageSize: {
+      type: Number,
+      required: true,
+    },
+    currentPage: {
+      type: Number,
+      required: true,
+    },
+    totalPages: {
+      type: Number,
+      required: true,
+    },
+    totalArticles: {
+      type: Number,
+      required: true,
+    },
+  },
   data() {
     return {
       pageArray: [],

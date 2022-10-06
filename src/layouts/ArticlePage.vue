@@ -15,11 +15,20 @@
     <div v-else-if="isLoading">
       <base-spinner></base-spinner>
     </div>
-    <div v-else-if="!isArticle" class="box is-flex is-justify-content-center is-align-items-center">
-      <h1 class="is-size-3 has-text-centered">No such article exists. Posted articles can be found <router-link to="/articles">here.</router-link></h1>
-
+    <div
+      v-else-if="!isArticle"
+      class="box is-flex is-justify-content-center is-align-items-center"
+    >
+      <h1 class="is-size-3 has-text-centered">
+        No such article exists. Posted articles can be found
+        <router-link to="/articles">here.</router-link>
+      </h1>
     </div>
-    <base-modal :modalToggle="modalToggle" @close-modal="modalHandle">
+    <base-modal
+      title="Edit article"
+      :modalToggle="modalToggle"
+      @close-modal="modalHandle"
+    >
       <edit-article-form
         :articleId="article.id"
         @save-data="editForm"
@@ -49,7 +58,6 @@ export default {
       return this.$store.getters['articles/isArticle'];
     },
     article() {
-      console.log(this.$store.getters['articles/article']);
       return this.$store.getters['articles/article'];
     },
     articleId() {

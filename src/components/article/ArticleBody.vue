@@ -12,17 +12,19 @@
       </div>
     </div>
     <p class="is-size-7">Created at : {{ createDate }}</p>
-    <p v-if="article.updated_at" class="is-size-7">Last updated at : {{ updateDate }}</p>
+    <p v-if="article.updated_at" class="is-size-7">
+      Last updated at : {{ updateDate }}
+    </p>
     <article class="box">
       <p>{{ article.body }}</p>
       <base-dialog
-      :show="dialogToggle"
-      title="Deletion message"
-      @close="deletePrompt"
-      @delete="deleteArticle"
-    >
-      <p>Are you sure you want to delete article - {{ article.title }} ?</p>
-    </base-dialog>
+        :show="dialogToggle"
+        title="Deletion message"
+        @close="deletePrompt"
+        @delete="deleteArticle"
+      >
+        <p>Are you sure you want to delete article - {{ article.title }} ?</p>
+      </base-dialog>
     </article>
   </div>
 </template>
@@ -30,11 +32,24 @@
 <script>
 export default {
   emits: ['editArticle', 'deleteArticle'],
-  props: ['article'],
-  data(){
+  props: {
+    article: {
+      type: Object,
+      required: true,
+    },
+  },
+  data() {
     return {
       dialogToggle: false,
-    }
+    };
+  },
+  computed: {
+    createDate() {
+      return this.dateCreator(this.article.created_at);
+    },
+    updateDate() {
+      return this.dateCreator(this.article.updated_at);
+    },
   },
   methods: {
     editArticle() {
@@ -51,14 +66,6 @@ export default {
     },
     deletePrompt() {
       this.dialogToggle = !this.dialogToggle;
-    },
-  },
-  computed: {
-    createDate() {
-      return this.dateCreator(this.article.created_at)
-    },
-    updateDate() {
-      return this.dateCreator(this.article.updated_at)
     },
   },
 };

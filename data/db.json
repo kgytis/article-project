@@ -7,7 +7,7 @@
     },
     {
       "id": "2",
-      "name": "teltonika",
+      "name": "kitas autorius",
       "created_at": 1664883378589
     },
     {
@@ -27,14 +27,6 @@
     }
   ],
   "articles": [
-    {
-      "id": "101",
-      "title": "Testing edit",
-      "body": "Okey, filled!",
-      "author_id": "2",
-      "created_at": 1664883378589,
-      "updated_at": 1665050095586
-    },
     {
       "id": "102",
       "title": "Front-end development----",
@@ -60,20 +52,20 @@
       "updated_at": ""
     },
     {
-      "id": "c3ef8c54-7fed-4155-9023-cbbe53695181",
-      "title": "ggg",
-      "body": "aaa",
-      "author_id": "1",
-      "created_at": 1665035113881,
-      "updated_at": ""
-    },
-    {
       "id": "cb392581-4a02-462b-af69-cb09370d5075",
       "title": "New art",
-      "body": "New art1111",
+      "body": "New art",
       "author_id": "2e3cac9d-a544-48f0-a5b7-deabfba470a4",
       "created_at": 1665049078479,
-      "updated_at": 1665049095135
+      "updated_at": 1665055498892
+    },
+    {
+      "id": "8c25dab6-33fd-4332-a700-86f8c6b5726a",
+      "title": "New article",
+      "body": "aaaa",
+      "author_id": "5dbe8bf0-40de-4a48-a094-0dec9926b9c1",
+      "created_at": 1665053598525,
+      "updated_at": ""
     }
   ]
 }

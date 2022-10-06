@@ -3,7 +3,7 @@
     <div class="modal-background" @click="modalHandle"></div>
     <div class="modal-content">
       <header class="modal-card-head">
-        <p class="modal-card-title">New article {{authId}}</p>
+        <p class="modal-card-title">{{ title }}</p>
       </header>
       <section class="modal-card-body">
         <!-- Form component-->
@@ -15,7 +15,20 @@
 
 <script>
 export default {
-  props: ['modalToggle',"authId"],
+  props: {
+    modalToggle: {
+      type: String,
+      required: true,
+    },
+    authId: {
+      type: String,
+      required: false,
+    },
+    title: {
+      type: String,
+      required: true,
+    },
+  },
   emits: ['close-modal'],
   methods: {
     modalHandle() {

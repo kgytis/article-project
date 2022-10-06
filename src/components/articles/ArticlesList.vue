@@ -3,21 +3,20 @@
     <article-item
       v-for="article in allArticles"
       :key="article.id"
-      :title="article.title"
-      :articleId="article.id"
-      :updatedAt="article.updated_at"
-      :createdAt="article.created_at"
-      :author="article.name"
-      :article="article.body"
+      :article="article"
       @openEdit="modalHandle"
       @itemDeleted="itemDeleted"
     ></article-item>
-    <base-modal :modalToggle="modalToggle.toggle" @close-modal="modalHandle">
+    <base-modal
+      title="Edit article"
+      :modalToggle="modalToggle.toggle"
+      @close-modal="modalHandle"
+    >
       <div>
         <edit-article-form
-        :articleId=modalToggle.articleId
-        @close-modal="modalHandle"
-        @save-data="editForm"
+          :articleId="modalToggle.articleId"
+          @close-modal="modalHandle"
+          @save-data="editForm"
         ></edit-article-form>
       </div>
     </base-modal>
@@ -28,8 +27,13 @@
 import ArticleItem from './ArticleItem.vue';
 import EditArticleForm from './EditArticleForm.vue';
 export default {
-  props: ['allArticles'],
-  emits : ['editForm', 'itemDeleted'],
+  props: {
+    allArticles: {
+      type: Array,
+      required: true,
+    },
+  },
+  emits: ['editForm', 'itemDeleted'],
   components: {
     ArticleItem,
     EditArticleForm,
@@ -51,12 +55,12 @@ export default {
         ? (this.modalToggle.toggle = 'is-active')
         : (this.modalToggle.toggle = '');
     },
-    editForm(data){
-      this.$emit('editForm', data)
+    editForm(data) {
+      this.$emit('editForm', data);
     },
-    itemDeleted(){
-      this.$emit('itemDeleted')
-    }
+    itemDeleted() {
+      this.$emit('itemDeleted');
+    },
   },
 };
 </script>
