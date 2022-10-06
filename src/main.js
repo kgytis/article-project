@@ -5,6 +5,7 @@ import store from './store/store.js';
 // Plugins
 import VueToast from 'vue-toast-notification';
 import 'vue-toast-notification/dist/theme-sugar.css';
+
 // Layout imports
 import BaseContainer from './components/UI/BaseContainer.vue';
 import BaseCard from './components/UI/BaseCard.vue';
@@ -19,7 +20,6 @@ Vue.component('base-modal', BaseModal);
 Vue.component('base-spinner', BaseSpinner);
 Vue.component('base-dialog', BaseDialog);
 Vue.component('base-search', BaseSearch)
-
 Vue.use(VueToast);
 
 new Vue({

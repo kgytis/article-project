@@ -16,6 +16,7 @@
       <div>
         <edit-article-form
         :articleId=modalToggle.articleId
+        @close-modal="modalHandle"
         @save-data="editForm"
         ></edit-article-form>
       </div>

@@ -48,9 +48,6 @@
       </div>
       <p class="invalid" v-if="!name.isValid">Field cannot be empty</p>
     </div>
-    <p class="invalid" v-if="!formIsValid">
-      Please fix the above errors and submit again.
-    </p>
     <footer>
       <button class="button is-success" type="submit">Save changes</button>
       <button class="button" @click="closeModal">Cancel</button>

@@ -97,14 +97,14 @@ export default {
     const { title, article, authName, authId, createdAt } = payload;
     const articleId = uuid();
     // const authorId = uuid();
-    const newArticle = {
-      id: articleId,
-      title: title,
-      name: authName,
-      body: article,
-      created_at: createdAt,
-      updated_at: '',
-    };
+    // const newArticle = {
+    //   id: articleId,
+    //   title: title,
+    //   name: authName,
+    //   body: article,
+    //   created_at: createdAt,
+    //   updated_at: '',
+    // };
     try {
       await axios.post('http://localhost:3000/articles', {
         id: articleId,

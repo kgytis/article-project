@@ -1,49 +1,50 @@
 <template>
-  <form @submit.prevent="submitForm">
-    <div class="field">
-      <label class="label" for="title">Article title </label>
-      <div class="control">
-        <input
-          name="title"
-          id="title"
-          :class="{ 'is-danger': !title.isValid }"
-          class="input"
-          type="text"
-          placeholder="Title"
-          v-model.trim="title.val"
-          value="editableArticle.title"
-          @blur="clearValidity('title')"
-        />
+  <div>
+    <base-spinner v-if="isLoading"></base-spinner>
+    <form v-else @submit.prevent="submitForm">
+      <div class="field">
+        <label class="label" for="title">Article title </label>
+        <div class="control">
+          <input
+            name="title"
+            id="title"
+            :class="{ 'is-danger': !title.isValid }"
+            class="input"
+            type="text"
+            placeholder="Title"
+            v-model.trim="title.val"
+            value="editableArticle.title"
+            @blur="clearValidity('title')"
+          />
+        </div>
+        <p class="invalid" v-if="!title.isValid">Field cannot be empty</p>
       </div>
-      <p class="invalid" v-if="!title.isValid">Field cannot be empty</p>
-    </div>
-    <div class="field">
-      <label class="label" for="article">Article</label>
-      <div class="control">
-        <textarea
-          name="body"
-          id="body"
-          class="textarea"
-          :class="{ 'is-danger': !body.isValid }"
-          placeholder="Article"
-          v-model.trim="body.val"
-          value="body.val"
-          @blur="clearValidity('body')"
-        />
+      <div class="field">
+        <label class="label" for="article">Article</label>
+        <div class="control">
+          <textarea
+            name="body"
+            id="body"
+            class="textarea"
+            :class="{ 'is-danger': !body.isValid }"
+            placeholder="Article"
+            v-model.trim="body.val"
+            value="body.val"
+            @blur="clearValidity('body')"
+          />
+        </div>
+        <p class="invalid" v-if="!body.isValid">Field cannot be empty</p>
       </div>
-      <p class="invalid" v-if="!body.isValid">Field cannot be empty</p>
-    </div>
-    <footer>
-      <button class="button is-success" type="submit">Save changes</button>
-      <button class="button" @click="closeModal">Cancel</button>
-    </footer>
-  </form>
+      <button class="button is-success">Save changes</button>
+    </form>
+    <button class="button" @click="closeModal">Cancel</button>
+  </div>
 </template>
 
 <script>
 export default {
   emits: ['close-modal', 'save-data'],
-  props: ['articleId'],
+  props: ['articleId', 'refetch'],
   data() {
     return {
       title: {
@@ -56,12 +57,13 @@ export default {
       },
       formIsValid: true,
       error: null,
+      isLoading : false
     };
   },
   methods: {
     closeModal() {
-      this.$emit('close-modal', '');
       this.formIsValid = true;
+      this.$emit('close-modal');
     },
     clearValidity(input) {
       this[input].isValid = true;
@@ -81,10 +83,14 @@ export default {
     },
     async loadArticle() {
       try {
-        await this.$store.dispatch('articles/fetchArticle', {articleId : this.articleId});
+        this.isLoading = true;
+        await this.$store.dispatch('articles/fetchArticle', {
+          articleId: this.articleId,
+        });
         const article = await this.$store.getters['articles/article'];
         this.title.val = article.title;
         this.body.val = article.body;
+        this.isLoading = false;
       } catch (error) {
         console.log(error.message);
       }
@@ -95,10 +101,10 @@ export default {
         return;
       }
       const formData = {
-        id : this.articleId,
+        id: this.articleId,
         title: this.title.val,
         article: this.body.val,
-        upadetedAt: new Date().getTime(),
+        updatedAt: new Date().getTime(),
       };
       this.closeModal();
       this.$emit('save-data', formData);
@@ -106,6 +112,9 @@ export default {
   },
   watch: {
     articleId() {
+      this.loadArticle();
+    },
+    refetch() {
       this.loadArticle();
     },
   },
